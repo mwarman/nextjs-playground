@@ -13,15 +13,34 @@ const TaskDetailPage = async ({
   console.log(`Task:`, task);
 
   if (!task) {
-    return <h2>Task not found</h2>;
+    return <h3 className="text-lg font-bold">Task not found</h3>;
   }
 
   return (
     <div>
-      <h2>{task.title}</h2>
-      {task.detail && <p>{task.detail}</p>}
-      <p>Status: {task.isComplete ? "Complete" : "Incomplete"}</p>
-      {task.dueAt && <p>Due at: {new Date(task.dueAt).toLocaleString()}</p>}
+      <h3 className="text-lg font-bold mb-2">{task.title}</h3>
+      {task.detail && (
+        <div className="mb-2 text-sm">
+          <div className="font-bold mb-1 uppercase">Details:</div>
+          <div className="mb-2 opacity-70 text-base">{task.detail}</div>
+        </div>
+      )}
+
+      <div className="flex gap-4 mb-2 items-center text-sm">
+        <div className="font-bold uppercase">Status:</div>
+        <div className="text-xs px-2 py-1 rounded-md font-bold bg-blue-600 text-gray-50">
+          {task.isComplete ? "Complete" : "Incomplete"}
+        </div>
+      </div>
+
+      {task.dueAt && (
+        <div className="flex gap-4 mb-2 items-center text-sm">
+          <div className="font-bold uppercase">Due at:</div>
+          <div className="opacity-70">
+            {new Date(task.dueAt).toLocaleString()}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

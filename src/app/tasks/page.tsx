@@ -5,18 +5,20 @@ import { tasks } from "./models/task";
 const TasksPage = () => {
   return (
     <div>
-      <h1>All Tasks</h1>
-      <ul>
+      <h3 className="text-lg font-bold mb-2">All Tasks</h3>
+      <ul className="space-y-4">
         {tasks.map((task) => (
-          <li key={task.id}>
-            <h2>
-              <Link href={`/tasks/${task.id}`}>{task.title}</Link>
-            </h2>
-            {task.detail && <p>{task.detail}</p>}
-            <p>Status: {task.isComplete ? "Complete" : "Incomplete"}</p>
-            {task.dueAt && (
-              <p>Due at: {new Date(task.dueAt).toLocaleString()}</p>
-            )}
+          <li key={task.id} className="flex flex-col gap-0.5 max-w-lg">
+            <Link href={`/tasks/${task.id}`} className="font-bold">
+              {task.title}
+            </Link>
+            {task.detail && <div className="opacity-70">{task.detail}</div>}
+            <div className="flex items-center justify-between gap-4">
+              <div>Status: {task.isComplete ? "Complete" : "Incomplete"}</div>
+              {task.dueAt && (
+                <div>Due at: {new Date(task.dueAt).toLocaleString()}</div>
+              )}
+            </div>
           </li>
         ))}
       </ul>
