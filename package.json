@@ -1,27 +1,37 @@
 {
   "name": "nextjs-playground",
+  "description": "A playground for experimenting with Next.js features and configurations.",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mwarman/nextjs-playground.git"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "next lint",
     "start": "next start",
-    "lint": "next lint"
+    "test": "echo 'No tests yet' && exit 0"
   },
   "dependencies": {
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "next": "15.4.5"
+    "next": "15.4.5",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4",
-    "eslint": "^9",
+    "@eslint/eslintrc": "3.3.1",
+    "@tailwindcss/postcss": "4.1.11",
+    "@types/node": "24.2.0",
+    "@types/react": "19.1.9",
+    "@types/react-dom": "19.1.7",
+    "eslint": "9.32.0",
     "eslint-config-next": "15.4.5",
-    "@eslint/eslintrc": "^3"
+    "postcss": "8.5.6",
+    "prettier": "3.6.2",
+    "tailwindcss": "4.1.11",
+    "typescript": "5.8.3"
   }
 }
