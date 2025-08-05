@@ -3,11 +3,17 @@
   "description": "A playground for experimenting with Next.js features and configurations.",
   "version": "0.1.0",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mwarman/nextjs-playground.git"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "next lint",
+    "start": "next start",
     "test": "echo 'No tests yet' && exit 0"
   },
   "dependencies": {
@@ -24,6 +30,7 @@
     "eslint": "9.32.0",
     "eslint-config-next": "15.4.5",
     "postcss": "8.5.6",
+    "prettier": "3.6.2",
     "tailwindcss": "4.1.11",
     "typescript": "5.8.3"
   }

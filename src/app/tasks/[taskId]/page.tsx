@@ -1,16 +1,28 @@
-import { tasks } from "../models/task";
+import { Task } from '../models/task';
 
-const TaskDetailPage = async ({
-  params,
-}: {
-  params: Promise<{ taskId: string }>;
-}) => {
+type GetTaskResult = [tasks: Task | undefined, error: Error | undefined];
+
+const getTask = async (taskId: string): Promise<GetTaskResult> => {
+  const response = await fetch(`https://5t1xj46vmf.execute-api.us-east-1.amazonaws.com/api/tasks/${taskId}`, {
+    next: { revalidate: 10 },
+  });
+  if (!response.ok) {
+    return [undefined, new Error('Failed to fetch task' + ' ' + response.status + ' ' + response.statusText)];
+  }
+  return [(await response.json()) as Task, undefined];
+};
+
+const TaskDetailPage = async ({ params }: { params: Promise<{ taskId: string }> }) => {
   const { taskId } = await params;
   console.log(`Task ID: ${taskId}`);
 
-  // Placeholder for fetching task details based on taskId
-  const task = tasks.find((t) => t.id === taskId);
+  const [task, error] = await getTask(taskId);
   console.log(`Task:`, task);
+
+  if (error) {
+    console.error(`Error fetching task: ${error.message}`);
+    return <div className="text-red-500">Error: {error.message}</div>;
+  }
 
   if (!task) {
     return <h3 className="text-lg font-bold">Task not found</h3>;
@@ -29,16 +41,14 @@ const TaskDetailPage = async ({
       <div className="flex gap-4 mb-2 items-center text-sm">
         <div className="font-bold uppercase">Status:</div>
         <div className="text-xs px-2 py-1 rounded-md font-bold bg-blue-600 text-gray-50">
-          {task.isComplete ? "Complete" : "Incomplete"}
+          {task.isComplete ? 'Complete' : 'Incomplete'}
         </div>
       </div>
 
       {task.dueAt && (
         <div className="flex gap-4 mb-2 items-center text-sm">
           <div className="font-bold uppercase">Due at:</div>
-          <div className="opacity-70">
-            {new Date(task.dueAt).toLocaleString()}
-          </div>
+          <div className="opacity-70">{new Date(task.dueAt).toLocaleString()}</div>
         </div>
       )}
     </div>
